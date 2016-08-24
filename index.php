@@ -34,6 +34,15 @@ try {
         	'text' => "You can send email to : Kasra@madadipouya.com"
      	]);
     }
+    else if($update->message->text == '/start' || 'Start')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => "Welcome to The Hosting Bot"
+    		]);
+
+    }
     else if($update->message->text == '/help')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
