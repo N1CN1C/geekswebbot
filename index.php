@@ -24,7 +24,7 @@ $url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
-$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah'];
+$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway'];
 
 //your app
 try {
@@ -34,18 +34,8 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to 4D Generator, to begin, type /generate"
+        	'text' => "Welcome to Where To Eat. Simply type /choose to generate a random place to eat at. "
      	]);
-    }
-    else if($update->message->text == '/generate')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Huat Ah! Your lucky 4D number is:' .$pin)
-    		]);
-
     }
     else if($update->message->text == '/choose')
     {
@@ -53,7 +43,7 @@ try {
     	$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => ('We shall eat at ' .$randomChoice($locations))
+    		'text' => ('Today we shall eat at ' .$randomChoice($locations))
     		]);
 
     }
@@ -100,13 +90,13 @@ try {
 
 }
 
-function generatePIN($digits = 4){
-    $i = 0; //counter
-    $pin = ""; //our default pin is blank.
-    while($i < $digits){
+//function generatePIN($digits = 4){
+    //$i = 0; //counter
+    //$pin = ""; //our default pin is blank.
+    //while($i < $digits){
         //generate a random number between 0 and 9.
-        $pin .= mt_rand(0, 9);
-        $i++;
-    }
-    return $pin;
-}
+       // $pin .= mt_rand(0, 9);
+        //$i++;
+    //}
+    //return $pin;
+//}
