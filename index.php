@@ -23,6 +23,9 @@ $client = new Zelenin\Telegram\Bot\Api('233107016:AAGdAYHuOxcpVgDf4Y05tM1nHhzGni
 $url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
+$randomChoice  = function($array) {return $array[array_rand($array)];};
+$names = ['Dexter', 'Esther', 'David', 'Richard', 'Rachel', 'Belinda'];
+
 //your app
 try {
 
@@ -41,6 +44,16 @@ try {
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => ('Huat Ah! Your lucky 4D number is:' .$pin)
+    		]);
+
+    }
+    else if($update->message->text == '/choose')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$pin = generatePIN();
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => $randomChoice($names)
     		]);
 
     }
