@@ -34,7 +34,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat! \n Type /eat to generate a random place to eat at. \n Type /locations to view the lsit of places. \n Type /about to view developer"
+        	'text' => "Welcome to Where To Eat! \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
      	]);
     }
     else if($update->message->text == '/eat')
@@ -52,7 +52,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
+    		'text' => "\n Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
     		]);
     }
     else if($update->message->text == '/help')
