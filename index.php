@@ -19,27 +19,27 @@
 */
 require 'vendor/autoload.php';
 
-$client = new Zelenin\Telegram\Bot\Api('233107016:AAFyjP9eQeJvq0GeDUtfuqiRzvhEEy-ZjX0'); // Set your access token
+$client = new Zelenin\Telegram\Bot\Api('233107016:AAGdAYHuOxcpVgDf4Y05tM1nHhzGniGDQbQ'); // Set your access token
 $url = ''; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
 //your app
 try {
 
-    if($update->message->text == '/email')
+    if($update->message->text == '/start' || 'Start')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "You can send email to : Kasra@madadipouya.com"
+        	'text' => "Welcome to The Hosting Bot"
      	]);
     }
-    else if($update->message->text == '/start' || 'Start')
+    else if($update->message->text == '/hello' || '/Hello')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "Welcome to The Hosting Bot"
+    		'text' => "STFU"
     		]);
 
     }
