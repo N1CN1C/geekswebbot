@@ -34,10 +34,10 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat. Simply type /choose to generate a random place to eat at. "
+        	'text' => "Welcome to Where To Eat. Simply type /eat to generate a random place to eat at. "
      	]);
     }
-    else if($update->message->text == '/choose')
+    else if($update->message->text == '/eat')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$pin = generatePIN();
