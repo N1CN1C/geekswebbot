@@ -34,12 +34,13 @@ try {
         	'text' => "Welcome to The Hosting Bot"
      	]);
     }
-    else if($update->message->text == '/hello')
+    else if($update->message->text == '/generate')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "STFU"
+    		'text' => $pin
     		]);
 
     }
@@ -84,4 +85,15 @@ try {
     //echo error message ot log it
     //echo $e->getMessage();
 
+}
+
+function generatePIN($digits = 4){
+    $i = 0; //counter
+    $pin = ""; //our default pin is blank.
+    while($i < $digits){
+        //generate a random number between 0 and 9.
+        $pin .= mt_rand(0, 9);
+        $i++;
+    }
+    return $pin;
 }
