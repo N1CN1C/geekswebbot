@@ -31,7 +31,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to The Hosting Bot"
+        	'text' => "Welcome to 4D Generator"
      	]);
     }
     else if($update->message->text == '/generate')
@@ -40,7 +40,7 @@ try {
     	$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => $pin
+    		'text' => "Your 4D Number is: " + $pin
     		]);
 
     }
