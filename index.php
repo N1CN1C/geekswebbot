@@ -34,7 +34,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat! \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
+        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
      	]);
     }
     else if($update->message->text == '/eat')
@@ -61,6 +61,7 @@ try {
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => "List of commands :\n /eat -> Generate a place to eat at \n /locations-> Get the list of locations to eat at
+    		/about -> Display details of developer
     		/help -> Shows list of available commands"
     		]);
     }
@@ -77,7 +78,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "Invalid command, please use /help to get list of available commands"
+    		'text' => "Invalid command, please use /help to get the list of available commands"
     		]);
     }
 
