@@ -25,8 +25,8 @@ $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
 $locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
-$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
-$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
+//$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
+//$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
 
 //your app
 try {
@@ -45,36 +45,8 @@ try {
     	//$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "Type /indoor for an indoor location, /outdoor for an outdoor location or /either for either an indoor or outdoor location"
-    		]);
-    		
-         if($update->message->text == '/indoor')
-         {
-             $response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($indoorLocations))
-    		]);
-         }
-         else if($update->message->text == '/outdoor')
-         {
-             $response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($outdoorLocations))
-    		]);
-         }
-         else if($update->message->text == '/either')
-         {
-             $response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
     		'text' => ('Today we shall eat at ' .$randomChoice($locations))
     		]);
-         }
     }
     else if($update->message->text == '/locations')
     {
