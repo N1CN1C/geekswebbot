@@ -24,7 +24,7 @@ $url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
-$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah'];
+$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway'];
 
 //your app
 try {
@@ -40,7 +40,7 @@ try {
     else if($update->message->text == '/eat')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$pin = generatePIN();
+    	//$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => ('Today we shall eat at ' .$randomChoice($locations))
