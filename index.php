@@ -20,7 +20,7 @@
 require 'vendor/autoload.php';
 
 $client = new Zelenin\Telegram\Bot\Api('233107016:AAGdAYHuOxcpVgDf4Y05tM1nHhzGniGDQbQ'); // Set your access token
-$url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
+//$url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
@@ -36,7 +36,6 @@ try {
         	'chat_id' => $update->message->chat->id,
         	'text' => "Welcome to Where To Eat. Type /eat to generate a random place to eat at. Type /locations to view the lsit of places. Type /about to view developer"
      	]);
-    }
     }
     else if($update->message->text == '/eat')
     {
@@ -55,7 +54,6 @@ try {
     		'chat_id' => $update->message->chat->id,
     		'text' => "Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
     		]);
-
     }
     else if($update->message->text == '/help')
     {
@@ -65,7 +63,14 @@ try {
     		'text' => "List of commands :\n /eat -> Generate a place to eat at \n /locations-> Get the list of locations to eat at
     		/help -> Shows list of available commands"
     		]);
-
+    }
+    else if($update->message->text == '/about')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => "Developer: N1CN1C 2016"
+    		]);
     }
     else
     {
