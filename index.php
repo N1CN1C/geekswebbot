@@ -40,7 +40,7 @@ try {
     	$pin = generatePIN();
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => ('Your 4D Number Is:' .$pin)
+    		'text' => ('Huat Ah! Your lucky 4D number is:' .$pin)
     		]);
 
     }
