@@ -24,7 +24,7 @@ $url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
-$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway'];
+$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
 
 //your app
 try {
@@ -34,8 +34,9 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat. Simply type /eat to generate a random place to eat at. "
+        	'text' => "Welcome to Where To Eat. Type /eat to generate a random place to eat at. Type /locations to view the lsit of places. Type /about to view developer"
      	]);
+    }
     }
     else if($update->message->text == '/eat')
     {
@@ -47,31 +48,23 @@ try {
     		]);
 
     }
+    else if($update->message->text == '/locations')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => "Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
+    		]);
+
+    }
     else if($update->message->text == '/help')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "List of commands :\n /email -> Get email address of the owner \n /latest -> Get latest posts of the blog 
+    		'text' => "List of commands :\n /eat -> Generate a place to eat at \n /locations-> Get the list of locations to eat at
     		/help -> Shows list of available commands"
     		]);
-
-    }
-    else if($update->message->text == '/latest')
-    {
-    		Feed::$cacheDir 	= __DIR__ . '/cache';
-			Feed::$cacheExpire 	= '5 hours';
-			$rss 		= Feed::loadRss($url);
-			$items 		= $rss->item;
-			$lastitem 	= $items[0];
-			$lastlink 	= $lastitem->link;
-			$lasttitle 	= $lastitem->title;
-			$message = $lasttitle . " \n ". $lastlink;
-			$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-			$response = $client->sendMessage([
-					'chat_id' => $update->message->chat->id,
-					'text' => $message
-				]);
 
     }
     else
