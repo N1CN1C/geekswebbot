@@ -76,15 +76,6 @@ try {
     		]);
          }
     }
-    else if($update->message->text == '/eat')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($locations))
-    		]);
-    }
     else if($update->message->text == '/locations')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
