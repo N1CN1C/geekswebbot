@@ -25,21 +25,21 @@ $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
 $locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
-//$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
-//$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
+$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
+$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
 
 //your app
 try {
 
-    if($update->message->text == '/start')
+    if($update->message->text == '/start' || '@TheHostingBot /start')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
+        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random indoor/outdoor place to eat at. \n Type /indoor to generate a random indoor place to eat at. \n Type /outdoor to generate a random outdoor place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
      	]);
     }
-    else if($update->message->text == '/eat')
+    else if($update->message->text == '/eat' || '@TheHostingBot /eat')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	//$pin = generatePIN();
@@ -48,7 +48,25 @@ try {
     		'text' => ('Today we shall eat at ' .$randomChoice($locations))
     		]);
     }
-    else if($update->message->text == '/locations')
+    else if($update->message->text == '/indoor' || '@TheHostingBot /indoor')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	//$pin = generatePIN();
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => ('Today we shall eat at ' .$randomChoice($indoorLocations))
+    		]);
+    }
+    else if($update->message->text == '/outdoor'|| '@TheHostingBot /outdoor')
+    {
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	//$pin = generatePIN();
+    	$response = $client->sendMessage([
+    		'chat_id' => $update->message->chat->id,
+    		'text' => ('Today we shall eat at ' .$randomChoice($outdoorLocations))
+    		]);
+    }
+    else if($update->message->text == '/locations' || '@TheHostingBot /locations')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
@@ -56,7 +74,7 @@ try {
     		'text' => "\n Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
     		]);
     }
-    else if($update->message->text == '/help')
+    else if($update->message->text == '/help' || '@TheHostingBot /help')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
@@ -66,7 +84,7 @@ try {
     		/help -> Shows list of available commands"
     		]);
     }
-    else if($update->message->text == '/about')
+    else if($update->message->text == '/about' || '@TheHostingBot /about')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
