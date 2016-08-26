@@ -19,7 +19,7 @@
 */
 require 'vendor/autoload.php';
 
-$client = new Zelenin\Telegram\Bot\Api(''); // Set your access token
+$client = new Zelenin\Telegram\Bot\Api('233107016:AAEd99q87b_AbrfZegdgM6XxpVocRP7vHEw'); // Set your access token
 $update = json_decode(file_get_contents('php://input'));
 $randomChoice  = function($array) {return $array[array_rand($array)];};
 $locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
