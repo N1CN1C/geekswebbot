@@ -20,58 +20,45 @@
 require 'vendor/autoload.php';
 
 $client = new Zelenin\Telegram\Bot\Api('233107016:AAEd99q87b_AbrfZegdgM6XxpVocRP7vHEw'); // Set your access token
+$url = ''; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
-$randomChoice  = function($array) {return $array[array_rand($array)];};
-$locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
 
 //your app
 try {
 
-    if($update->message->text == '/start')
+    if($update->message->text == '/email')
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
+        	'text' => "You can send email to : Kasra@madadipouya.com"
      	]);
-    }
-    else if($update->message->text == '/eat')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($locations))
-    		]);
-
-    }
-    else if($update->message->text == '/locations')
-    {
-    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => "\n Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
-    		]);
-
     }
     else if($update->message->text == '/help')
     {
-    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "List of commands :\n /eat -> Generate a place to eat at \n /locations-> Get the list of locations to eat at
-    		/about -> Display details of developer
+    		'text' => "List of commands :\n /email -> Get email address of the owner \n /latest -> Get latest posts of the blog 
     		/help -> Shows list of available commands"
     		]);
 
     }
-    else if($update->message->text == '/about')
+    else if($update->message->text == '/latest')
     {
-    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => "Developer: N1CN1C 2016"
-    		]);
+    		Feed::$cacheDir 	= __DIR__ . '/cache';
+			Feed::$cacheExpire 	= '5 hours';
+			$rss 		= Feed::loadRss($url);
+			$items 		= $rss->item;
+			$lastitem 	= $items[0];
+			$lastlink 	= $lastitem->link;
+			$lasttitle 	= $lastitem->title;
+			$message = $lasttitle . " \n ". $lastlink;
+			$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+			$response = $client->sendMessage([
+					'chat_id' => $update->message->chat->id,
+					'text' => $message
+				]);
 
     }
     else
