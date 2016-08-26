@@ -25,8 +25,8 @@ $update = json_decode(file_get_contents('php://input'));
 
 $randomChoice  = function($array) {return $array[array_rand($array)];};
 $locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
-$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
-$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
+//$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
+//$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
 
 //your app
 try {
@@ -36,7 +36,7 @@ try {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
         	'chat_id' => $update->message->chat->id,
-        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random indoor/outdoor place to eat at. \n Type /indoor to generate a random indoor place to eat at. \n Type /outdoor to generate a random outdoor place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
+        	'text' => "Welcome to Where To Eat! ☺ \n \n Type /eat to generate a random place to eat at. \n Type /locations to view the list of places. \n Type /about to view developer"
      	]);
     }
     else if($update->message->text == '/eat')
@@ -46,24 +46,6 @@ try {
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => ('Today we shall eat at ' .$randomChoice($locations))
-    		]);
-    }
-    else if($update->message->text == '/indoor')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($indoorLocations))
-    		]);
-    }
-    else if($update->message->text == '/outdoor')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	//$pin = generatePIN();
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => ('Today we shall eat at ' .$randomChoice($outdoorLocations))
     		]);
     }
     else if($update->message->text == '/locations')
