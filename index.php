@@ -19,7 +19,7 @@
 */
 require 'vendor/autoload.php';
 
-$client = new Zelenin\Telegram\Bot\Api('233107016:AAGdAYHuOxcpVgDf4Y05tM1nHhzGniGDQbQ'); // Set your access token
+$client = new Zelenin\Telegram\Bot\Api('233107016:AAEd99q87b_AbrfZegdgM6XxpVocRP7vHEw'); // Set your access token
 //$url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
 $update = json_decode(file_get_contents('php://input'));
 
