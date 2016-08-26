@@ -19,14 +19,10 @@
 */
 require 'vendor/autoload.php';
 
-$client = new Zelenin\Telegram\Bot\Api('233107016:AAEd99q87b_AbrfZegdgM6XxpVocRP7vHEw'); // Set your access token
-//$url = 'http://rss.cnn.com/rss/cnn_topstories.rss'; // URL RSS feed
+$client = new Zelenin\Telegram\Bot\Api(''); // Set your access token
 $update = json_decode(file_get_contents('php://input'));
-
 $randomChoice  = function($array) {return $array[array_rand($array)];};
 $locations = ['Canteen A', 'Canteen B', '118', 'Vivo City', 'Telok Blangah', 'Depot Heights', 'Queensway', 'Good News Cafe', 'Bukit Merah Interchange'];
-//$indoorLocations = ['Canteen A', 'Vivo City', 'Queensway', 'Good News Cafe'];
-//$outdoorLocations = ['Canteen B', '118', 'Telok Blangah', 'Depot Heights', 'Bukit Merah Interchange'];
 
 //your app
 try {
@@ -47,39 +43,43 @@ try {
     		'chat_id' => $update->message->chat->id,
     		'text' => ('Today we shall eat at ' .$randomChoice($locations))
     		]);
+
     }
     else if($update->message->text == '/locations')
     {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => "\n Canteen A \n Canteen B \n 118 \n Vivo City \n Telok Blangah \n Depot Heights \n Queensway \n Good News Cafe \n Bukit Merah Interchange"
     		]);
+
     }
     else if($update->message->text == '/help')
     {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => "List of commands :\n /eat -> Generate a place to eat at \n /locations-> Get the list of locations to eat at
     		/about -> Display details of developer
     		/help -> Shows list of available commands"
     		]);
+
     }
     else if($update->message->text == '/about')
     {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
+    		$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
     		'text' => "Developer: N1CN1C 2016"
     		]);
+
     }
     else
     {
     	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
     	$response = $client->sendMessage([
     		'chat_id' => $update->message->chat->id,
-    		'text' => "Invalid command, please use /help to get the list of available commands"
+    		'text' => "Invalid command, please use /help to get list of available commands"
     		]);
     }
 
@@ -89,14 +89,3 @@ try {
     //echo $e->getMessage();
 
 }
-
-//function generatePIN($digits = 4){
-    //$i = 0; //counter
-    //$pin = ""; //our default pin is blank.
-    //while($i < $digits){
-        //generate a random number between 0 and 9.
-       // $pin .= mt_rand(0, 9);
-        //$i++;
-    //}
-    //return $pin;
-//}
